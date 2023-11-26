@@ -1,10 +1,19 @@
 import tkinter as tk
 from tkinter.scrolledtext import ScrolledText
 from PyPDF2 import PdfReader, PdfWriter
-from reportlab.pdfgen import canvas
+from reportlab.pdfgen import canvas  # Added import
 from reportlab.lib.pagesizes import letter
 from io import BytesIO
 import re
+import subprocess
+import sys
+
+def install_dependencies():
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
+    except subprocess.CalledProcessError as e:
+        print(f"An error occurred while installing dependencies: {e}")
+        sys.exit(1)
 
 
 def modify_pdf():
@@ -149,5 +158,5 @@ text_output.pack()
 button_clear = tk.Button(win, text="Clear", command=clear)
 button_clear.pack()
 
-
+install_dependencies()
 win.mainloop()
